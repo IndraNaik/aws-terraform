@@ -38,7 +38,7 @@ resource "aws_subnet" "private" {
     "kubernetes.io/role/internal-elb" = 1
     Resource    = "EC2"
   }
-
+  
   lifecycle {
     ignore_changes = [tags]
   }
@@ -85,7 +85,7 @@ resource "aws_eip" "eip-nat" {
   # vpc = true
   domain = "vpc"
   tags = {
-    Name        = "${var.environment}-${var.platform}-natip"
+    Name        = "${var.environment}-${var.platform}-nat-ip"
     Environment = "${var.environment}"
     Resource    = "NAT Gateway"
   }
