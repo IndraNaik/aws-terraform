@@ -87,7 +87,6 @@ variable "vpc_cidr_block" {
 
 }
 
-
 variable "tags" {
   description = "A map of tags to add to all resources"
   type        = map(string)
