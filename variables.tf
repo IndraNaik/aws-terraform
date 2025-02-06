@@ -93,3 +93,27 @@ variable "tags" {
   default     = {}
 }
 
+variable "rds_user" {
+  type = string
+  default = "abcd"
+}
+
+variable "rds_password" {
+  type = string
+  default = "abcd"
+}
+
+variable "docdb_name" {
+  type = string
+  default = "tf-test-doc-db"
+}
+
+variable "docdb_user" {
+  type = string
+  default = "abcd"
+}
+
+variable "docdb_password" {
+  type = string
+  default = "abcd"
+}
