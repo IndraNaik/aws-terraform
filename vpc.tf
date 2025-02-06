@@ -5,8 +5,8 @@ resource "aws_vpc" "tf-vpc" {
   enable_dns_hostnames = true
 
   tags = {
-    Environment = "test"
-    Name        = "${var.environment}-${var.platform}-vpc"
+    Environment = "${var.environment}-${var.platform}-vpc"
+    Name = "${var.environment}-${var.platform}"
   }
 
   lifecycle {
@@ -14,7 +14,7 @@ resource "aws_vpc" "tf-vpc" {
   }
 }
 
-resource "aws_default_security_group" "esg_sg" {
+resource "aws_default_security_group" "tf-test_sg" {
   vpc_id = aws_vpc.tf-vpc.id
 
   tags = {
@@ -33,7 +33,7 @@ resource "aws_subnet" "private" {
   map_public_ip_on_launch = false
 
   tags = {
-    Environment                       = "test"
+    Environment                       = "${var.environment}-${var.platform}"
     Name                              = each.value.name
     "kubernetes.io/role/internal-elb" = 1
     Resource    = "EC2"
@@ -55,7 +55,7 @@ resource "aws_subnet" "public" {
   map_public_ip_on_launch = true
 
   tags = {
-    Environment              = "test"
+    Environment              = "${var.environment}-${var.platform}"
     Name                     = each.value.name
     "kubernetes.io/role/elb" = 1
     Resource    = "ELB"
@@ -75,7 +75,7 @@ resource "aws_eip" "nat" {
   domain = "vpc"
 
   tags = {
-    Environment = "test"
+    Environment = "${var.environment}-${var.platform}"
     Name        = "eip-${each.value.name}"
   }
 }
@@ -101,7 +101,7 @@ resource "aws_nat_gateway" "nat-gw" {
   subnet_id     = aws_subnet.public[each.value.name].id
 
   tags = {
-    Environment = "test"
+    Environment = "${var.environment}-${var.platform}"
     Name        = "nat-${each.value.name}"
   }
 }
@@ -119,7 +119,7 @@ resource "aws_route_table" "private" {
   }
 
   tags = {
-    Environment = "test"
+    Environment = "${var.environment}-${var.platform}"
     Name        = "${var.environment}-${each.value.name}-rt"
   }
 }
@@ -138,7 +138,7 @@ resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.tf-vpc.id
 
   tags = {
-    Environment = "test"
+    Environment = "${var.environment}-${var.platform}"
     Name        = "${var.environment}-${var.platform}-igw-security"
   }
 }
@@ -152,7 +152,7 @@ resource "aws_route_table" "public" {
   }
 
   tags = {
-    Environment = "core"
+    Environment = "${var.environment}-${var.platform}"
     Name        = "${var.environment}-${var.platform}-public-security-rt"
   }
 }

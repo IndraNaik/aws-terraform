@@ -10,6 +10,6 @@ resource "aws_s3_bucket" "repo_bucket_3" {
   bucket = "${var.environment}-${var.platform}-app-web-bucket"
   tags = {
     Name        = "${var.environment}-${var.platform}-app-web-bucket"
-    Environment = "prod"
+    Environment = "${var.environment}-${var.platform}"
   }
 }
