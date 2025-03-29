@@ -29,7 +29,7 @@ resource "aws_security_group" "docdb_sg" {
   }
 
   ingress {
-    description = "Allow traffic from Bastion host security group"
+    description     = "Allow traffic from Bastion host security group"
     from_port       = 27017
     to_port         = 27017
     protocol        = "tcp"

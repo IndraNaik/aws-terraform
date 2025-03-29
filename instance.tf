@@ -57,7 +57,7 @@ resource "aws_instance" "testinstance" {
     Name = "Automate"
   }
   root_block_device {
-    volume_size = 30 
+    volume_size = 30
     volume_type = "gp3"
   }
 }

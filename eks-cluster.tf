@@ -2,7 +2,7 @@ resource "aws_eks_cluster" "tf_test_cluster" {
   name     = "${var.environment}-${var.platform}-cluster"
   role_arn = aws_iam_role.eks.arn
 
-  version  = "1.26"
+  version = "1.26"
 
   vpc_config {
     security_group_ids      = [aws_security_group.eks_cluster.id]
@@ -86,7 +86,7 @@ resource "aws_security_group" "eks_cluster" {
   }
 
   tags = {
-    Name        = "${var.environment}-${var.platform}-cluster/ControlPlaneSecurityGroup"
+    Name = "${var.environment}-${var.platform}-cluster/ControlPlaneSecurityGroup"
   }
 }
 

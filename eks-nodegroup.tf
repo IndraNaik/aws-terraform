@@ -4,7 +4,7 @@ resource "aws_eks_node_group" "On-demand" {
   node_role_arn   = aws_iam_role.node-group.arn
   subnet_ids      = [for s in aws_subnet.private : s.id]
 
-  labels          = {
+  labels = {
     "type" = "On-demand"
   }
 
@@ -25,9 +25,9 @@ resource "aws_eks_node_group" "On-demand" {
   ]
 
   tags = {
-    Environment = "${var.environment}-${var.platform}"
+    Environment                                                     = "${var.environment}-${var.platform}"
     "k8s.io/cluster-autoscaler/${aws_eks_cluster.esg_cluster.name}" = "owned"
-    "k8s.io/cluster-autoscaler/enabled" = "true"
+    "k8s.io/cluster-autoscaler/enabled"                             = "true"
   }
 }
 
@@ -39,7 +39,7 @@ resource "aws_eks_node_group" "Ondemand-memory" {
   node_role_arn   = aws_iam_role.node-group.arn
   subnet_ids      = [for s in aws_subnet.private : s.id]
 
-  labels          = {
+  labels = {
     "type" = "Ondemand-memory"
   }
 
@@ -58,9 +58,9 @@ resource "aws_eks_node_group" "Ondemand-memory" {
   ]
 
   tags = {
-    Environment = "${var.environment}-${var.platform}"
+    Environment                                                     = "${var.environment}-${var.platform}"
     "k8s.io/cluster-autoscaler/${aws_eks_cluster.esg_cluster.name}" = "owned"
-    "k8s.io/cluster-autoscaler/enabled" = "true"
+    "k8s.io/cluster-autoscaler/enabled"                             = "true"
   }
 }
 
@@ -72,7 +72,7 @@ resource "aws_eks_node_group" "spot-cpu" {
   subnet_ids      = [for s in aws_subnet.private : s.id]
   capacity_type   = "SPOT"
 
-  labels          = {
+  labels = {
     "type" = "spot-cpu"
   }
 
@@ -91,10 +91,10 @@ resource "aws_eks_node_group" "spot-cpu" {
   ]
 
   tags = {
-    Environment = "${var.environment}-${var.platform}"
+    Environment                                                     = "${var.environment}-${var.platform}"
     "k8s.io/cluster-autoscaler/${aws_eks_cluster.esg_cluster.name}" = "owned"
-    "k8s.io/cluster-autoscaler/enabled" = "true"
-    
+    "k8s.io/cluster-autoscaler/enabled"                             = "true"
+
   }
 }
 
@@ -106,7 +106,7 @@ resource "aws_eks_node_group" "spot-memory" {
   subnet_ids      = [for s in aws_subnet.private : s.id]
   capacity_type   = "SPOT"
 
-  labels          = {
+  labels = {
     "type" = "spot-memory"
   }
 
@@ -125,9 +125,9 @@ resource "aws_eks_node_group" "spot-memory" {
   ]
 
   tags = {
-    Environment = "${var.environment}-${var.platform}"
+    Environment                                                     = "${var.environment}-${var.platform}"
     "k8s.io/cluster-autoscaler/${aws_eks_cluster.esg_cluster.name}" = "owned"
-    "k8s.io/cluster-autoscaler/enabled" = "true"
+    "k8s.io/cluster-autoscaler/enabled"                             = "true"
   }
 }
 
@@ -138,7 +138,7 @@ resource "aws_eks_node_group" "Ondemand-cpu" {
   node_role_arn   = aws_iam_role.node-group.arn
   subnet_ids      = [for s in aws_subnet.private : s.id]
 
-  labels          = {
+  labels = {
     "type" = "Ondemand-cpu"
   }
 
@@ -157,9 +157,9 @@ resource "aws_eks_node_group" "Ondemand-cpu" {
   ]
 
   tags = {
-    Environment = "${var.environment}-${var.platform}"
+    Environment                                                     = "${var.environment}-${var.platform}"
     "k8s.io/cluster-autoscaler/${aws_eks_cluster.esg_cluster.name}" = "owned"
-    "k8s.io/cluster-autoscaler/enabled" = "true"
+    "k8s.io/cluster-autoscaler/enabled"                             = "true"
   }
 }
 
@@ -233,17 +233,17 @@ resource "aws_iam_role_policy" "node-group-ClusterAutoscalerPolicy" {
     Statement = [
       {
         Action = [
-            "autoscaling:DescribeAutoScalingGroups",
-            "autoscaling:DescribeAutoScalingInstances",
-            "autoscaling:DescribeLaunchConfigurations",
-            "autoscaling:DescribeTags",
-            "autoscaling:SetDesiredCapacity",
-            "autoscaling:TerminateInstanceInAutoScalingGroup"
+          "autoscaling:DescribeAutoScalingGroups",
+          "autoscaling:DescribeAutoScalingInstances",
+          "autoscaling:DescribeLaunchConfigurations",
+          "autoscaling:DescribeTags",
+          "autoscaling:SetDesiredCapacity",
+          "autoscaling:TerminateInstanceInAutoScalingGroup"
         ]
         Effect   = "Allow"
         Resource = "*"
       },
-      ]
+    ]
   })
 }
 
@@ -256,21 +256,21 @@ resource "aws_iam_role_policy" "node-group-AmazonEKS_EBS_CSI_DriverPolicy" {
     Statement = [
       {
         Action = [
-            "ec2:AttachVolume",
-            "ec2:CreateSnapshot",
-            "ec2:CreateTags",
-            "ec2:CreateVolume",
-            "ec2:DeleteSnapshot",
-            "ec2:DeleteTags",
-            "ec2:DeleteVolume",
-            "ec2:DescribeAvailabilityZones",
-            "ec2:DescribeInstances",
-            "ec2:DescribeSnapshots",
-            "ec2:DescribeTags",
-            "ec2:DescribeVolumes",
-            "ec2:DescribeVolumesModifications",
-            "ec2:DetachVolume",
-            "ec2:ModifyVolume"
+          "ec2:AttachVolume",
+          "ec2:CreateSnapshot",
+          "ec2:CreateTags",
+          "ec2:CreateVolume",
+          "ec2:DeleteSnapshot",
+          "ec2:DeleteTags",
+          "ec2:DeleteVolume",
+          "ec2:DescribeAvailabilityZones",
+          "ec2:DescribeInstances",
+          "ec2:DescribeSnapshots",
+          "ec2:DescribeTags",
+          "ec2:DescribeVolumes",
+          "ec2:DescribeVolumesModifications",
+          "ec2:DetachVolume",
+          "ec2:ModifyVolume"
         ]
         Effect   = "Allow"
         Resource = "*"
@@ -307,10 +307,10 @@ resource "aws_security_group" "eks_nodes" {
   vpc_id      = aws_vpc.esg_vpc.id
 
   ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    self        = true
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
+    self      = true
   }
 
   ingress {
