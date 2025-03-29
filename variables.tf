@@ -1,62 +1,62 @@
-variable "name"{
-    type = string
-    default = "tf-ec2-sg"
+variable "name" {
+  type    = string
+  default = "tf-ec2-sg"
 }
 
 variable "private_network_config" {
   type = map(object({
-      cidr_block               = string
-      associated_public_subnet = string
+    cidr_block               = string
+    associated_public_subnet = string
   }))
 
   default = {
     "private-tf-1" = {
-        cidr_block               = "192.170.0.0/23"
-        associated_public_subnet = "public-tf-1"
+      cidr_block               = "192.170.0.0/23"
+      associated_public_subnet = "public-tf-1"
     },
     "private-tf-2" = {
-        cidr_block               = "192.170.2.0/23"
-        associated_public_subnet = "public-tf-2"
+      cidr_block               = "192.170.2.0/23"
+      associated_public_subnet = "public-tf-2"
     }
   }
 }
 
 locals {
-    private_nested_config = flatten([
-        for name, config in var.private_network_config : [
-            {
-                name                     = name
-                cidr_block               = config.cidr_block
-                associated_public_subnet = config.associated_public_subnet
-            }
-        ]
-    ])
+  private_nested_config = flatten([
+    for name, config in var.private_network_config : [
+      {
+        name                     = name
+        cidr_block               = config.cidr_block
+        associated_public_subnet = config.associated_public_subnet
+      }
+    ]
+  ])
 }
 
 variable "public_network_config" {
   type = map(object({
-      cidr_block = string
+    cidr_block = string
   }))
 
   default = {
     "public-tf-1" = {
-        cidr_block = "192.170.8.0/23"
+      cidr_block = "192.170.8.0/23"
     },
     "public-tf-2" = {
-        cidr_block = "192.170.10.0/23"
+      cidr_block = "192.170.10.0/23"
     }
   }
 }
 
 locals {
-    public_nested_config = flatten([
-        for name, config in var.public_network_config : [
-            {
-                name                    = name
-                cidr_block              = config.cidr_block
-            }
-        ]
-    ])
+  public_nested_config = flatten([
+    for name, config in var.public_network_config : [
+      {
+        name       = name
+        cidr_block = config.cidr_block
+      }
+    ]
+  ])
 }
 
 variable "authorized_source_ranges" {
@@ -72,17 +72,17 @@ variable "az" {
 }
 
 variable "environment" {
-  type = string
+  type    = string
   default = "test"
 }
 
 variable "platform" {
-  type = string
+  type    = string
   default = "tf"
 }
 
 variable "vpc_cidr_block" {
-  type = string
+  type    = string
   default = "192.170.0.0/16"
 
 }
@@ -94,27 +94,27 @@ variable "tags" {
 }
 
 variable "rds_user" {
-  type = string
+  type    = string
   default = "abcd"
 }
 
 variable "rds_password" {
-  type = string
+  type    = string
   default = "abcd"
 }
 
 variable "docdb_name" {
-  type = string
+  type    = string
   default = "tf-test-doc-db"
 }
 
 variable "docdb_user" {
-  type = string
+  type    = string
   default = "abcd"
 }
 
 variable "docdb_password" {
-  type = string
+  type    = string
   default = "abcd"
 }
 

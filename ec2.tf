@@ -1,5 +1,5 @@
 module "ec2_instance" {
-  source  = "terraform-aws-modules/ec2-instance/aws"
+  source = "terraform-aws-modules/ec2-instance/aws"
 
   name = "tf-practice-instance"
 
@@ -20,12 +20,12 @@ module "security_group" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "~> 4.0"
 
-  name        = "${var.name}"
+  name        = var.name
   description = "Security group for tf EC2 instance"
-  vpc_id      =  "vpc-xxxxxxxxxxxxxxxxx"
+  vpc_id      = "vpc-xxxxxxxxxxxxxxxxx"
 
   ingress_cidr_blocks = ["0.0.0.0/0"]
-  ingress_rules       = ["http-80-tcp", "all-icmp","http-22-tcp"]
+  ingress_rules       = ["http-80-tcp", "all-icmp", "http-22-tcp"]
   egress_rules        = ["all-all"]
 }
 

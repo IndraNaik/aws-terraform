@@ -1,6 +1,6 @@
 output "VPC" {
   description = "VPC Status"
-  value = aws_vpc.tf-vpc.arn
+  value       = aws_vpc.tf-vpc.arn
 }
 
 output "DocumentDB" {
@@ -10,22 +10,22 @@ output "DocumentDB" {
 
 output "EC2" {
   description = "EC2 Status"
-  value = ec2_instance
+  value       = ec2_instance
 }
 
 output "RDS" {
-    description = "RDS Status"
-    value = aws_db_instance.tf-test-db.resource_id
+  description = "RDS Status"
+  value       = aws_db_instance.tf-test-db.resource_id
 }
 
 output "S3" {
   description = "S3 Status"
-  value = aws_s3_bucket.repo_bucket_3.acceleration_status
+  value       = aws_s3_bucket.repo_bucket_3.acceleration_status
 }
 
 output "EKS" {
   description = "EKS Cluster Status"
-  value = aws_eks_cluster.tf_test_cluster.endpoint
+  value       = aws_eks_cluster.tf_test_cluster.endpoint
 }
 
 

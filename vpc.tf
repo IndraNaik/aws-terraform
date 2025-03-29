@@ -6,7 +6,7 @@ resource "aws_vpc" "tf-vpc" {
 
   tags = {
     Environment = "${var.environment}-${var.platform}-vpc"
-    Name = "${var.environment}-${var.platform}"
+    Name        = "${var.environment}-${var.platform}"
   }
 
   lifecycle {
@@ -36,9 +36,9 @@ resource "aws_subnet" "private" {
     Environment                       = "${var.environment}-${var.platform}"
     Name                              = each.value.name
     "kubernetes.io/role/internal-elb" = 1
-    Resource    = "EC2"
+    Resource                          = "EC2"
   }
-  
+
   lifecycle {
     ignore_changes = [tags]
   }
@@ -58,7 +58,7 @@ resource "aws_subnet" "public" {
     Environment              = "${var.environment}-${var.platform}"
     Name                     = each.value.name
     "kubernetes.io/role/elb" = 1
-    Resource    = "ELB"
+    Resource                 = "ELB"
   }
 
   lifecycle {
