@@ -49,12 +49,18 @@ resource "aws_security_group" "allow_user_to_connect" {
 }
 
 resource "aws_instance" "testinstance" {
+ # count           = 2 #meta argument
+  for_each = tomap({
+    Test-Instance-1 = "t2.micro",
+    Test-Instance-2 = "t2.micro"
+  }
+  )
   ami             = var.ami_id
-  instance_type   = var.instance_type
+  instance_type   = each.value
   key_name        = aws_key_pair.deployer.key_name
   security_groups = [aws_security_group.allow_user_to_connect.name]
   tags = {
-    Name = "Automate"
+    Name = each.key
   }
   root_block_device {
     volume_size = 30
