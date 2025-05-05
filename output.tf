@@ -10,7 +10,7 @@ output "DocumentDB" {
 
 output "EC2" {
   description = "EC2 Status"
-  value       = ec2_instance
+  value       = aws_instance.testinstance.instance_state
 }
 
 output "RDS" {
@@ -29,4 +29,18 @@ output "EKS" {
 }
 
 
+// This is for count output
+output "ec2_instance_private_ip" {
+  value = aws_instance.testinstance[*].private_ip
+}
 
+output "ec2_instance_public_ip" {
+  value = aws_instance.testinstance[*].public_ip
+}
+
+// This is for_each output
+output "ec2_instance_for_each_public_ip" {
+  value = [
+    for k in aws_instance.testinstance :  k.public_ip
+  ]
+}
