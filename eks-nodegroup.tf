@@ -26,7 +26,7 @@ resource "aws_eks_node_group" "On-demand" {
 
   tags = {
     Environment                                                     = "${var.environment}-${var.platform}"
-    "k8s.io/cluster-autoscaler/${aws_eks_cluster.esg_cluster.name}" = "owned"
+    "k8s.io/cluster-autoscaler/${aws_eks_cluster.tf_test_cluster.name}" = "owned"
     "k8s.io/cluster-autoscaler/enabled"                             = "true"
   }
 }
@@ -59,7 +59,7 @@ resource "aws_eks_node_group" "Ondemand-memory" {
 
   tags = {
     Environment                                                     = "${var.environment}-${var.platform}"
-    "k8s.io/cluster-autoscaler/${aws_eks_cluster.esg_cluster.name}" = "owned"
+    "k8s.io/cluster-autoscaler/${aws_eks_cluster.tf_test_cluster.name}" = "owned"
     "k8s.io/cluster-autoscaler/enabled"                             = "true"
   }
 }
@@ -92,7 +92,7 @@ resource "aws_eks_node_group" "spot-cpu" {
 
   tags = {
     Environment                                                     = "${var.environment}-${var.platform}"
-    "k8s.io/cluster-autoscaler/${aws_eks_cluster.esg_cluster.name}" = "owned"
+    "k8s.io/cluster-autoscaler/${aws_eks_cluster.tf_test_cluster.name}" = "owned"
     "k8s.io/cluster-autoscaler/enabled"                             = "true"
 
   }
@@ -126,7 +126,7 @@ resource "aws_eks_node_group" "spot-memory" {
 
   tags = {
     Environment                                                     = "${var.environment}-${var.platform}"
-    "k8s.io/cluster-autoscaler/${aws_eks_cluster.esg_cluster.name}" = "owned"
+    "k8s.io/cluster-autoscaler/${aws_eks_cluster.tf_test_cluster.name}" = "owned"
     "k8s.io/cluster-autoscaler/enabled"                             = "true"
   }
 }
@@ -158,14 +158,14 @@ resource "aws_eks_node_group" "Ondemand-cpu" {
 
   tags = {
     Environment                                                     = "${var.environment}-${var.platform}"
-    "k8s.io/cluster-autoscaler/${aws_eks_cluster.esg_cluster.name}" = "owned"
+    "k8s.io/cluster-autoscaler/${aws_eks_cluster.tf_test_cluster.name}" = "owned"
     "k8s.io/cluster-autoscaler/enabled"                             = "true"
   }
 }
 
 
 /* resource "aws_eks_node_group" "Virtual-Volunteering" {
-  cluster_name    = aws_eks_cluster.esg_cluster.name
+  cluster_name    = aws_eks_cluster.tf_test_cluster.name
   node_group_name = "${var.environment}-Virtual-Volunteering-node"
   node_role_arn   = aws_iam_role.node-group.arn
   subnet_ids      = [for s in aws_subnet.public : s.id]
@@ -195,7 +195,7 @@ resource "aws_eks_node_group" "Ondemand-cpu" {
 
 
 resource "aws_iam_role" "node-group" {
-  name = "us-prod-eks-node-group-role-esg"
+  name = "us-prod-eks-node-group-role-tf_test"
 
   assume_role_policy = jsonencode({
     Statement = [{
@@ -304,7 +304,7 @@ resource "aws_iam_role_policy" "node-group-AmazonEKS_EBS_CSI_DriverPolicy" {
 resource "aws_security_group" "eks_nodes" {
   name        = "${var.environment}-${var.platform}-cluster/ClusterSharedNodeSecurityGroup"
   description = "Communication between all nodes in the cluster"
-  vpc_id      = aws_vpc.esg_vpc.id
+  vpc_id      = aws_vpc.tf_test_vpc.id
 
   ingress {
     from_port = 0
@@ -317,7 +317,7 @@ resource "aws_security_group" "eks_nodes" {
     from_port       = 0
     to_port         = 0
     protocol        = "-1"
-    security_groups = [aws_eks_cluster.esg_cluster.vpc_config[0].cluster_security_group_id]
+    security_groups = [aws_eks_cluster.tf_test_cluster.vpc_config[0].cluster_security_group_id]
   }
 
   egress {
