@@ -132,3 +132,13 @@ variable "instance_type" {
   description = "Instance type for the EC2 instance"
   default     = "t2.large"
 }
+
+variable "env" {
+  type    = string
+  default = "tf-test"
+}
+
+variable "ec2_default_root_storage_size" {
+  default = 10
+  type = number
+}
