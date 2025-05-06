@@ -55,6 +55,7 @@ resource "aws_instance" "testinstance" {
     Test-Instance-2 = "t2.micro"
   }
   )
+  depends_on = [ aws_default_security_group.tf-test_sg, aws_key_pair.deployer ]
   ami             = var.ami_id
   instance_type   = each.value
   key_name        = aws_key_pair.deployer.key_name
