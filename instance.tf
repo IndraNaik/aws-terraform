@@ -1,6 +1,6 @@
 resource "aws_key_pair" "deployer" {
   key_name   = "terra-automate-key"
-  public_key = file("path-of-key-file")
+  public_key = file("terra-automate-key.pub")
 }
 
 resource "aws_default_vpc" "default" {
@@ -64,7 +64,7 @@ resource "aws_instance" "testinstance" {
     Name = each.key
   }
   root_block_device {
-    volume_size = 30
+    volume_size = var.env == "tf-test" ? 20 : var.ec2_default_root_storage_size 
     volume_type = "gp3"
   }
 }
